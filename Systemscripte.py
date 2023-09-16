@@ -148,7 +148,24 @@ while True:
         command_to_execute = "duf"
         install_and_execute(command_to_execute)
 
+    elif choice == "5":
 
+        print(f"\n   ")
+
+        print(name + " Du hast Backup der Pakete gewählt :")
+
+        # Befehl für die Aktualisierung
+
+        try:
+
+            subprocess.run(["pacman -Qeq > Pakete.txt"], shell=True)
+
+            print("Pakete erfolgreich nach Pakete.txt gesichert.")
+
+
+        except subprocess.CalledProcessError:
+
+            print("Fehler beim Ausführen")
 
     elif choice == "6":
 
