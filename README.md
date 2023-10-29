@@ -12,3 +12,5 @@ Speicherplatz mit duf Anzeigen
 Speichern aller installierten pakete in eine textdatei
 Installieren der Pakete von der erstellten Textdatei
 netzwerk SSH Bannergrab"
+Youtube video downloader
+hindergrund einer bilddatei entfernen
