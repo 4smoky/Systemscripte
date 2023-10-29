@@ -17,6 +17,8 @@ import subprocess
 import sys
 # die socket bibliothek laden um eine netzwerkverbindung zu erhalten
 import socket
+# youtube downloder modul
+import yt_dlp
 # Farben
 class Color:
     RED = '\033[91m'
@@ -69,7 +71,7 @@ time.sleep(0.5)
 
 #optionen (menü für 6 aufgaben)
 
-options = ["Systemupdate + mirror refresh", "Systemupdate ohne mirror refresh", "Systeminfo", "Speicherplatz mit duf Anzeigen", "Speichern aller installierten pakete in eine textdatei", "Installieren der Pakete von der erstellten Textdatei", "netzwerk SSH Bannergrab", "Beenden"]
+options = ["Systemupdate + mirror refresh", "Systemupdate ohne mirror refresh", "Systeminfo", "Speicherplatz mit duf Anzeigen", "Speichern aller installierten pakete in eine textdatei", "Installieren der Pakete von der erstellten Textdatei", "netzwerk SSH Bannergrab", "youtube video download", "Beenden"]
 
 
 #eindlosschleife und index erstellen beginnend mit 1
@@ -204,7 +206,19 @@ while True:
 
         s.close
 
-    elif choice == '8':
+        elif choice == "8":
+        print(f"\n   ")
+        print(name + " Du willst von YouTube ein Video herunterladen:")
+
+        # Import von yt_dlp sollte bereits oben erfolgen, nicht hier
+        url = input("Enter URL: ")
+        ydl_opts = {}
+
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            ydl.download([url])
+        print("Video erfolgreich heruntergeladen!")
+    
+    elif choice == '9':
         print(f"\n  Viel Spaß")
         exit()  # Beenden des Skripts
 
