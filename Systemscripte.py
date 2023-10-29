@@ -206,7 +206,7 @@ while True:
 
         s.close
 
-        elif choice == "8":
+    elif choice == "8":
         print(f"\n   ")
         print(name + " Du willst von YouTube ein Video herunterladen:")
 
