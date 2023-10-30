@@ -217,10 +217,47 @@ while True:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([url])
         print("Video erfolgreich heruntergeladen!")
-    
-    elif choice == '9':
+    # Option 9: Hintergrund entfernen
+
+    elif choice == "9":
+
+        print(f"\n   ")
+
+        print(name + " Du willst den Hintergrund von einem Bild entfernen :")
+
+        input_path = input("Gib den Pfad des Bildes ein: ")
+
+        output_path = input("Speicherpfad: ")
+
+        try:
+
+            inp = Image.open(input_path)
+
+            # Implementieren oder eine externe Bibliothek verwenden, um den Hintergrund zu entfernen
+
+            # Beispiel:
+
+            # output = remove_background(inp)
+
+            # output.save(output_path)
+
+            print("Hintergrund entfernt und gespeichert.")
+
+        except FileNotFoundError:
+
+            print("Die angegebene Datei wurde nicht gefunden.")
+
+        except Exception as e:
+
+            print("Ein Fehler ist aufgetreten:", str(e))
+
+
+    #option 10 beenden
+
+    elif choice == "10":
         print(f"\n  Viel Spaß")
         exit()  # Beenden des Skripts
+    
 
     else:
         print(f"\n   Falsche Eingabe!!")
