@@ -10,15 +10,20 @@
 #
 # Import der shutil-Bibliothek um die Breite des Terminals zu erhalten
 import shutil
-#import des modules time benötigt für sleep befehl
-import time
-#import des moduls für systembefehle
-import subprocess
-import sys
 # die socket bibliothek laden um eine netzwerkverbindung zu erhalten
 import socket
-# youtube downloder modul
+# import des moduls für systembefehle
+import subprocess
+# import des modules time benötigt für sleep befehl
+import time
+
+# modul youtube downloader
 import yt_dlp
+# import für Hintergrund entfernung
+from rembg import remove
+
+from PIL import Image
+
 # Farben
 class Color:
     RED = '\033[91m'
@@ -28,16 +33,15 @@ class Color:
 #Banner
 BANNER_TEXT="""
 
-  ██████  ███▄ ▄███▓ ▒█████   ██ ▄█▀▓██   ██▓
-▒██    ▒ ▓██▒▀█▀ ██▒▒██▒  ██▒ ██▄█▒  ▒██  ██▒
-░ ▓██▄   ▓██    ▓██░▒██░  ██▒▓███▄░   ▒██ ██░
-  ▒   ██▒▒██    ▒██ ▒██   ██░▓██ █▄   ░ ▐██▓░
-▒██████▒▒▒██▒   ░██▒░ ████▓▒░▒██▒ █▄  ░ ██▒▓░
-▒ ▒▓▒ ▒ ░░ ▒░   ░  ░░ ▒░▒░▒░ ▒ ▒▒ ▓▒   ██▒▒▒
-░ ░▒  ░ ░░  ░      ░  ░ ▒ ▒░ ░ ░▒ ▒░ ▓██ ░▒░
-░  ░  ░  ░      ░   ░ ░ ░ ▒  ░ ░░ ░  ▒ ▒ ░░
-      ░         ░       ░ ░  ░  ░    ░ ░
-                                     ░ ░
+▓█████  ██▓      █████▒▒█████
+▓█   ▀ ▓██▒    ▓██   ▒▒██▒  ██▒
+▒███   ▒██░    ▒████ ░▒██░  ██▒
+▒▓█  ▄ ▒██░    ░▓█▒  ░▒██   ██░
+░▒████▒░██████▒░▒█░   ░ ████▓▒░
+░░ ▒░ ░░ ▒░▓  ░ ▒ ░   ░ ▒░▒░▒░
+ ░ ░  ░░ ░ ▒  ░ ░       ░ ▒ ▒░
+   ░     ░ ░    ░ ░   ░ ░ ░ ▒
+   ░  ░    ░  ░           ░ ░
 
 
 """""
@@ -71,7 +75,7 @@ time.sleep(0.5)
 
 #optionen (menü für 6 aufgaben)
 
-options = ["Systemupdate + mirror refresh", "Systemupdate ohne mirror refresh", "Systeminfo", "Speicherplatz mit duf Anzeigen", "Speichern aller installierten pakete in eine textdatei", "Installieren der Pakete von der erstellten Textdatei", "netzwerk SSH Bannergrab", "youtube video download", "Beenden"]
+options = ["Systemupdate + mirror refresh", "Systemupdate ohne mirror refresh", "Systeminfo", "Speicherplatz mit duf Anzeigen", "Speichern aller installierten pakete in eine textdatei", "Installieren der Pakete von der erstellten Textdatei", "netzwerk SSH Bannergrab", "youtube dl", "hintergrund entfernen", "Beenden"]
 
 
 #eindlosschleife und index erstellen beginnend mit 1
@@ -82,6 +86,7 @@ while True:
     choice = input("\nDeine Auswahl: ")
 
 # Verarbeitung der Benutzerwahl
+# option für Systemaktualisierung  mit mirrorliste
     if choice == "1":
         print (name + " Du hast die Sytem Update mit Mirror refresh gewählt :")
 
@@ -91,6 +96,8 @@ while True:
             print("Update erfolgreich durchgeführt.")
         except subprocess.CalledProcessError:
             print("Fehler beim Ausführen des Update-Befehls.")
+
+    # option für Systemaktualisierung ohne mirroliste
 
     elif choice == "2":
         print(f"\n  ")
@@ -104,6 +111,7 @@ while True:
         except subprocess.CalledProcessError:
             print("Fehler beim Ausführen des Update-Befehls.")
 
+    # option für SystemINFO
 
     elif choice == "3":
 
@@ -125,7 +133,7 @@ while True:
 
 
 
-
+    # option für Speicherplatzanzeige mit Duf
 
     elif choice == "4":
 
@@ -150,6 +158,8 @@ while True:
         command_to_execute = "duf"
         install_and_execute(command_to_execute)
 
+    # option für Systempackete sichern
+
     elif choice == "5":
 
         print(f"\n   ")
@@ -168,6 +178,8 @@ while True:
         except subprocess.CalledProcessError:
 
             print("Fehler beim Ausführen")
+
+    # option für installieren der packete der sicherung
 
     elif choice == "6":
 
@@ -188,6 +200,8 @@ while True:
 
             print("Fehler beim Ausführen")
 
+    # option für Bannergrab
+
     elif choice == "7":
         print()
         print(f"\n   Netzwerk SSH Bannercrab")
@@ -206,18 +220,22 @@ while True:
 
         s.close
 
+    # option für Youtube video downloader
+
     elif choice == "8":
         print(f"\n   ")
         print(name + " Du willst von YouTube ein Video herunterladen:")
 
-        # Import von yt_dlp sollte bereits oben erfolgen, nicht hier
         url = input("Enter URL: ")
         ydl_opts = {}
 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([url])
         print("Video erfolgreich heruntergeladen!")
+
+
     # Option 9: Hintergrund entfernen
+
 
     elif choice == "9":
 
@@ -233,15 +251,14 @@ while True:
 
             inp = Image.open(input_path)
 
-            # Implementieren oder eine externe Bibliothek verwenden, um den Hintergrund zu entfernen
+            # Hintergrund mit rembg entfernen
 
-            # Beispiel:
+            output = remove(inp)
 
-            # output = remove_background(inp)
-
-            # output.save(output_path)
+            output.save(output_path)
 
             print("Hintergrund entfernt und gespeichert.")
+
 
         except FileNotFoundError:
 
@@ -251,13 +268,13 @@ while True:
 
             print("Ein Fehler ist aufgetreten:", str(e))
 
-
-    #option 10 beenden
+            #option 10 beenden
 
     elif choice == "10":
         print(f"\n  Viel Spaß")
         exit()  # Beenden des Skripts
-    
+
+    # option für Falsche eingabe
 
     else:
         print(f"\n   Falsche Eingabe!!")
