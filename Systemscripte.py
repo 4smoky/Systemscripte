@@ -3,8 +3,7 @@
 #
 # # learning by doing :-)
 #
-# Author : @ Elfo
-#
+# Author : @ 4Smoky
 #Maybee this will my start for many different things
 #
 #
