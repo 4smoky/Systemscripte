@@ -4,7 +4,8 @@
 # # learning by doing :-)
 #
 # Author : @ 4Smoky
-#Maybee this will my start for many different things
+#
+# Maybee this will my start for many different things
 #
 #
 # Import der shutil-Bibliothek um die Breite des Terminals zu erhalten
@@ -23,14 +24,17 @@ from rembg import remove
 
 from PIL import Image
 
+
 # Farben
 class Color:
     RED = '\033[91m'
     GREEN = '\033[92m'
     YELLOW = '\033[93m'
     RESET = '\033[0m'
-#Banner
-BANNER_TEXT="""
+
+
+# Banner
+BANNER_TEXT = """
    _____           _                               _       _        
   / ____|         | |                             (_)     | |       
  | (___  _   _ ___| |_ ___ _ __ ___  ___  ___ _ __ _ _ __ | |_ ___  
@@ -59,8 +63,6 @@ BANNER_TEXT="""
       ░         ░       ░ ░  ░  ░    ░ ░     
                                      ░ ░     
 
-
-
 """""
 
 # berechne die breite vom terminal
@@ -72,40 +74,41 @@ banner_centered = BANNER_TEXT.center(WIDTH)
 print(f"{Color.RED}{banner_centered}{Color.RESET}")
 print('*' * WIDTH)
 
-
-#Beginn des scripts
-print ()
-print ("Hallo")
+# Beginn des scripts
+print()
+print("Hallo")
 time.sleep(0.5)
-name = input ("Wie ist dein Name ? : ")
+name = input("Wie ist dein Name ? : ")
 print("")
-print ("")
+print("")
 time.sleep(0.5)
-print ("Hallo  " + name + ", Freut mich das du mein program testen willst.")
-print ("")
-print ("Ich hoffe es gefällt dir und hilft dir ein bischen ;)")
+print("Hallo  " + name + ", Freut mich das du mein program testen willst.")
+print("")
+print("Ich hoffe es gefällt dir und hilft dir ein bischen ;)")
 
 time.sleep(0.5)
-print ("")
-print (name + " ,was kann ich heute für dich tun ?")
+print("")
+print(name + " ,was kann ich heute für dich tun ?")
 time.sleep(0.5)
 
-#optionen (menü für 6 aufgaben)
+# optionen (menü für 6 aufgaben)
 
-options = ["Systemupdate + mirror refresh", "Systemupdate ohne mirror refresh", "Systeminfo", "Speicherplatz mit duf Anzeigen", "Speichern aller installierten pakete in eine textdatei", "Installieren der Pakete von der erstellten Textdatei", "netzwerk SSH Bannergrab", "youtube dl", "hintergrund entfernen", "Beenden"]
+options = ["Systemupdate + mirror refresh", "Systemupdate ohne mirror refresh", "Systeminfo",
+           "Speicherplatz mit duf Anzeigen", "Speichern aller installierten pakete in eine textdatei",
+           "Installieren der Pakete von der erstellten Textdatei", "netzwerk SSH Bannergrab", "youtube dl",
+           "hintergrund entfernen", "Beenden"]
 
-
-#eindlosschleife und index erstellen beginnend mit 1
+# eindlosschleife und index erstellen beginnend mit 1
 while True:
     for index, option in enumerate(options, start=1):
         print(f"\n{index}. {option}")
     # Auswahl der optionen
     choice = input("\nDeine Auswahl: ")
 
-# Verarbeitung der Benutzerwahl
-# option für Systemaktualisierung  mit mirrorliste
+    # Verarbeitung der Benutzerwahl
+    # option für Systemaktualisierung  mit mirrorliste
     if choice == "1":
-        print (name + " Du hast die Sytem Update mit Mirror refresh gewählt :")
+        print(name + " Du hast die Sytem Update mit Mirror refresh gewählt :")
 
         # aktualisierung + mirror upgrade
         try:
@@ -113,6 +116,8 @@ while True:
             print("Update erfolgreich durchgeführt.")
         except subprocess.CalledProcessError:
             print("Fehler beim Ausführen des Update-Befehls.")
+            # Prompt to press a key before returning to the menu
+        input("\n   Drücken Sie Enter, um fortzufahren")
 
     # option für Systemaktualisierung ohne mirroliste
 
@@ -127,6 +132,8 @@ while True:
             print("Update erfolgreich durchgeführt.")
         except subprocess.CalledProcessError:
             print("Fehler beim Ausführen des Update-Befehls.")
+        # Prompt to press a key before returning to the menu
+        input("\n   Drücken Sie Enter, um fortzufahren")
 
     # option für SystemINFO
 
@@ -164,9 +171,11 @@ while True:
                 # Führe den Befehl aus
                 subprocess.run(command, shell=True, check=True)
             except subprocess.CalledProcessError:
-                print("programm nicht installiert . Es wird nun Duf installiert und sie müßen ihr root password eingeben")
+                print(
+                    "programm nicht installiert . Es wird nun Duf installiert und sie müßen ihr root password eingeben")
                 # Installiere das Paket und führe den Befehl erneut aus
-                install_command = "paru -S " + command.split()[0] + " --noconfirm"  # Extrahiere den Paketnamen aus dem Befehl
+                install_command = "paru -S " + command.split()[
+                    0] + " --noconfirm"  # Extrahiere den Paketnamen aus dem Befehl
                 subprocess.run(install_command, shell=True, check=True)
                 subprocess.run(command, shell=True, check=True)
 
@@ -174,6 +183,8 @@ while True:
         # Hier ist ein Beispielaufruf:
         command_to_execute = "duf"
         install_and_execute(command_to_execute)
+        # Prompt to press a key before returning to the menu
+        input("\n   Drücken Sie Enter, um fortzufahren")
 
     # option für Systempackete sichern
 
@@ -196,6 +207,9 @@ while True:
 
             print("Fehler beim Ausführen")
 
+        # Prompt to press a key before returning to the menu
+        input("\n   Drücken Sie Enter, um fortzufahren")
+
     # option für installieren der packete der sicherung
 
     elif choice == "6":
@@ -216,6 +230,8 @@ while True:
         except subprocess.CalledProcessError:
 
             print("Fehler beim Ausführen")
+            # Prompt to press a key before returning to the menu
+        input("\n   Drücken Sie Enter, um fortzufahren")
 
     # option für Bannergrab
 
@@ -237,6 +253,9 @@ while True:
 
         s.close
 
+        # Prompt to press a key before returning to the menu
+        input("\n   Drücken Sie Enter, um fortzufahren")
+
     # option für Youtube video downloader
 
     elif choice == "8":
@@ -250,9 +269,11 @@ while True:
             ydl.download([url])
         print("Video erfolgreich heruntergeladen!")
 
+        # Prompt to press a key before returning to the menu
+        input("\n   Drücken Sie Enter, um fortzufahren")
+
 
     # Option 9: Hintergrund entfernen
-
 
     elif choice == "9":
 
@@ -285,11 +306,14 @@ while True:
 
             print("Ein Fehler ist aufgetreten:", str(e))
 
-            #option 10 beenden
+            # option 10 beenden
 
     elif choice == "10":
         print(f"\n  Viel Spaß")
         exit()  # Beenden des Skripts
+        # Prompt to press a key before returning to the menu
+        input("\n   Drücken Sie Enter, um fortzufahren")
+
 
     # option für Falsche eingabe
 
@@ -297,3 +321,5 @@ while True:
         print(f"\n   Falsche Eingabe!!")
         print(f"\n   ")
         input(f"\n   Drücken Sie Enter, um fortzufahren")
+    # Prompt to press a key before returning to the menu
+    input("\n   Drücken Sie Enter, um fortzufahren")
